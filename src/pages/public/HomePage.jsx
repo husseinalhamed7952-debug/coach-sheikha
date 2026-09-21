@@ -11,14 +11,15 @@ import {
   getSubscriptions,
   getSiteSettings
 } from '../../services/api';
+import { siteContentFallback } from '../../data/fallback';
 
-function AnimatedCounter({ end, suffix = '', duration = 1200 }) {
-  const [count, setCount] = useState(0);
+function AnimatedCounter({ end, duration = 800 }) {
+  const target = Number(end) || 0;
+  const [count, setCount] = useState(target);
   const elementRef = useRef(null);
   const animFrameRef = useRef(null);
 
   useEffect(() => {
-    const target = Number(end) || 0;
     if (target === 0) {
       setCount(0);
       return;
@@ -29,10 +30,6 @@ function AnimatedCounter({ end, suffix = '', duration = 1200 }) {
       return;
     }
 
-    if (animFrameRef.current) {
-      cancelAnimationFrame(animFrameRef.current);
-    }
-
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
@@ -41,7 +38,6 @@ function AnimatedCounter({ end, suffix = '', duration = 1200 }) {
           const step = timestamp => {
             if (!startTime) startTime = timestamp;
             const progress = Math.min((timestamp - startTime) / duration, 1);
-            // Smooth easeOutCubic
             const ease = 1 - Math.pow(1 - progress, 3);
             setCount(Math.round(ease * target));
 
@@ -69,37 +65,33 @@ function AnimatedCounter({ end, suffix = '', duration = 1200 }) {
         cancelAnimationFrame(animFrameRef.current);
       }
     };
-  }, [end, duration]);
+  }, [target, duration]);
 
-  return (
-    <strong ref={elementRef}>
-      {count}{suffix}
-    </strong>
-  );
+  return <span ref={elementRef}>{count}</span>;
 }
 
-function AnimatedStat({ rawValue, duration = 1200 }) {
+function AnimatedStat({ rawValue, duration = 800 }) {
   const str = String(rawValue ?? '').trim();
   const match = str.match(/^([^\d]*)(\d+)([^\d]*)$/);
   if (!match) {
-    return <strong>{str}</strong>;
+    return <span className="stat-number">{str}</span>;
   }
   const prefix = match[1];
   const num = parseInt(match[2], 10);
   const suffix = match[3];
 
   return (
-    <strong>
+    <span className="stat-number" dir="ltr">
       {prefix}
-      <AnimatedCounter key={num} end={num} duration={duration} />
+      <AnimatedCounter key={rawValue} end={num} duration={duration} />
       {suffix}
-    </strong>
+    </span>
   );
 }
 
 export default function HomePage() {
   const location = useLocation();
-  const [content, setContent] = useState(null);
+  const [content, setContent] = useState(siteContentFallback);
   const [certificates, setCertificates] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
 
@@ -178,7 +170,7 @@ export default function HomePage() {
   const heroSecondaryBtn = content?.hero?.secondary_button_text || 'أكتشف الباقات';
   const heroImg = (content?.hero?.image_url && !content.hero.image_url.includes('unsplash'))
     ? content.hero.image_url
-    : '/coach-hero.jpg';
+    : 'public/coach-hero.png';
 
   const about = content?.about || {
     title: 'عن الكوتش',
@@ -222,16 +214,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. Statistics Section (100% Dynamic from site_content stats) */}
+      {/* 2. Statistics Section */}
       <section className="stats">
-        {(content?.stats?.items || [
-          { value: '+7', label: 'سنوات الخبرة' },
-          { value: '+100', label: 'مشتركة حققن أهدافهن' },
-          { value: '+4', label: 'برامج غذائية متنوعة' }
-        ]).slice(0, 3).map((item, idx) => (
+        {(content?.stats?.items || siteContentFallback?.stats?.items || []).slice(0, 3).map((item, idx) => (
           <div key={idx} className="stat-col">
             <AnimatedStat rawValue={item.value} />
-            <span>{item.label}</span>
+            <span className="stat-label">{item.label}</span>
           </div>
         ))}
       </section>
@@ -239,7 +227,7 @@ export default function HomePage() {
       {/* 3. About Section */}
       <section id="about" className="about section">
         <div className="about-art">
-          <img src="/about-wreath.svg" alt="عن الكوتش" className="about-wreath-img" />
+          <img src="public/about-wreath.png" alt="عن الكوتش" className="about-wreath-img" />
         </div>
         <div className="about-content">
           <h2>{about.title}</h2>
@@ -256,19 +244,19 @@ export default function HomePage() {
             certificates.length > 0
               ? certificates
               : [
-                  {
-                    id: 'cert-1',
-                    title: 'Mezan Academy',
-                    description: 'Certificate of Completion - تدريب وتغذية رياضية',
-                    image_url: '/لوقو شيخه.jpeg'
-                  },
-                  {
-                    id: 'cert-2',
-                    title: 'إدراك',
-                    description: 'Level Completion Certificate - تصميم خطة إنقاص وزن شخصية',
-                    image_url: '/لوقو شيخه.jpeg'
-                  }
-                ]
+                {
+                  id: 'cert-1',
+                  title: 'Mezan Academy',
+                  description: 'Certificate of Completion - تدريب وتغذية رياضية',
+                  image_url: '/لوقو شيخه.jpeg'
+                },
+                {
+                  id: 'cert-2',
+                  title: 'إدراك',
+                  description: 'Level Completion Certificate - تصميم خطة إنقاص وزن شخصية',
+                  image_url: '/لوقو شيخه.jpeg'
+                }
+              ]
           }
           desktopItems={2}
           tabletItems={2}
@@ -329,28 +317,28 @@ export default function HomePage() {
               testimonials.length > 0
                 ? testimonials
                 : [
-                    {
-                      id: 'test-1',
-                      name: 'نور محمد',
-                      content: 'كوتش رسمياً ما شاء الله، اللهم بارك مقاسي تغير من M إلى L كل بنطلوناتي خلاص باي باي🤍',
-                      tag: 'مشتركة تضخيم',
-                      rating: '★★★★★'
-                    },
-                    {
-                      id: 'test-2',
-                      name: 'هدى عبدالله',
-                      content: 'والحمدلله اليوم صار 105.5 لي سنتين ثابته ع الوزن ماقد نزلت ع 107 مع انه اسبوع واحد بس راضيه بالنتيجة 💗',
-                      tag: 'مشتركة تنحيف',
-                      rating: '★★★★★'
-                    },
-                    {
-                      id: 'test-3',
-                      name: 'بشاير علي',
-                      content: 'نزلت ١٢ كيلو معاك ياكوتش كان حلم بالنسبة لي واليوم أعيش حلمي بفضل الله ثم فضلك 💖💖💖',
-                      tag: 'مشتركة تضخيم',
-                      rating: '★★★★★'
-                    }
-                  ]
+                  {
+                    id: 'test-1',
+                    name: 'نور محمد',
+                    content: 'كوتش رسمياً ما شاء الله، اللهم بارك مقاسي تغير من M إلى L كل بنطلوناتي خلاص باي باي🤍',
+                    tag: 'مشتركة تضخيم',
+                    rating: '★★★★★'
+                  },
+                  {
+                    id: 'test-2',
+                    name: 'هدى عبدالله',
+                    content: 'والحمدلله اليوم صار 105.5 لي سنتين ثابته ع الوزن ماقد نزلت ع 107 مع انه اسبوع واحد بس راضيه بالنتيجة 💗',
+                    tag: 'مشتركة تنحيف',
+                    rating: '★★★★★'
+                  },
+                  {
+                    id: 'test-3',
+                    name: 'بشاير علي',
+                    content: 'نزلت ١٢ كيلو معاك ياكوتش كان حلم بالنسبة لي واليوم أعيش حلمي بفضل الله ثم فضلك 💖💖💖',
+                    tag: 'مشتركة تضخيم',
+                    rating: '★★★★★'
+                  }
+                ]
             }
             desktopItems={3}
             tabletItems={2}

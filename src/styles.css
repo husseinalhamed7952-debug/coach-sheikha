@@ -185,12 +185,13 @@ nav.site-nav a:not(.button).active {
    Home Hero Section (Exact Match to Reference Design)
    ========================================================================== */
 .hero {
-  min-height: 540px;
+  min-height: 520px;
   display: grid;
   grid-template-columns: 1.12fr 0.88fr;
-  align-items: stretch;
+  align-items: center;
   background-color: #FAF5EF;
-  padding: 0;
+  padding: 20px 0 30px;
+  margin-bottom: 55px; /* Vertical Spacing separating hero completely from the brown stats bar */
   gap: 0;
   width: 100%;
   max-width: 100%;
@@ -289,21 +290,21 @@ nav.site-nav a:not(.button).active {
 
 .hero-art {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: flex-end;
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 520px;
+  min-height: 480px;
   margin: 0;
-  padding: 0;
+  padding: 10px 0 20px;
 }
 
 .hero-art-frame {
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: 520px;
+  height: 480px;
+  min-height: 480px;
   background: linear-gradient(135deg, #e8d7ca 0%, #eddccd 50%, #FAF5EF 100%);
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
@@ -323,8 +324,8 @@ nav.site-nav a:not(.button).active {
   z-index: 2;
   width: 100%;
   height: 100%;
-  min-height: 520px;
-  max-height: 600px;
+  min-height: 480px;
+  max-height: 500px;
   object-fit: cover;
   object-position: center 15%;
   display: block;
@@ -340,29 +341,40 @@ nav.site-nav a:not(.button).active {
   text-align: center;
   background-color: #42220f;
   color: #ffffff;
-  padding: 24px 20px;
+  padding: 26px 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
 .stats .stat-col {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  box-sizing: border-box;
 }
 
-.stats .stat-col strong {
-  font-size: 32px;
+.stat-number {
+  font-size: 34px;
   font-weight: 800;
   color: #ffffff;
-  line-height: 1.2;
+  line-height: 1.15;
+  white-space: nowrap;
+  direction: ltr;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.stats .stat-col span {
-  font-size: 14.5px;
+.stat-label {
+  font-size: 15px;
   color: #f2e6dc;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+  text-align: center;
 }
 
 /* ==========================================================================
@@ -424,11 +436,13 @@ nav.site-nav a:not(.button).active {
 }
 
 .certificates h2 {
-  font-size: clamp(28px, 3vw, 34px);
-  font-weight: 800;
-  color: #42220f;
-  text-align: right;
-  margin: 0 0 30px;
+    font-size: clamp(28px, 3vw, 34px);
+    font-weight: 800;
+    color: #42220f;
+    text-align: right;
+    margin: 0 0 30px;
+    display: flex;
+    justify-content: space-around;
 }
 
 /* Custom Slider Component */
@@ -3371,11 +3385,13 @@ footer.site-footer {
   .hero {
     display: flex;
     flex-direction: column;
-    padding: 0;
+    padding: 0 0 24px;
+    margin-bottom: 40px;
     gap: 0;
     text-align: center;
     align-items: center;
-    min-height: auto;
+    min-height: auto !important;
+    height: auto !important;
     background-color: #FAF5EF;
     width: 100%;
     max-width: 100%;
@@ -3393,27 +3409,31 @@ footer.site-footer {
     max-width: 100%;
     margin: 0;
     padding: 0;
+    min-height: auto !important;
+    height: auto !important;
     box-sizing: border-box;
   }
 
   .hero-art-frame {
     width: 100%;
     max-width: 100%;
-    height: clamp(340px, 85vw, 440px);
-    min-height: auto;
+    height: auto !important;
+    min-height: auto !important;
     border-radius: 0 0 40px 40px !important; /* Bottom arched edge only - rounded-b-[40px] */
     overflow: hidden;
     margin: 0;
     background: linear-gradient(180deg, #e8d7ca 0%, #eddccd 50%, #FAF5EF 100%);
     box-shadow: 0 8px 24px rgba(66, 34, 15, 0.08);
+    display: flex;
+    align-items: flex-start;
   }
 
   .hero-art-frame img,
   .hero-art img {
     width: 100%;
-    height: 100%;
-    min-height: auto;
-    max-height: none;
+    height: auto;
+    max-height: 380px;
+    min-height: auto !important;
     object-fit: cover;
     object-position: center 15%;
     display: block;
@@ -3430,7 +3450,7 @@ footer.site-footer {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    padding: 30px 20px 36px;
+    padding: 16px 20px 20px;
   }
 
   .hero-content .eyebrow {
@@ -3488,37 +3508,54 @@ footer.site-footer {
   /* 4. Statistics Section directly below Hero */
   .stats {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 4px;
-    padding: 18px 8px;
+    padding: 24px 8px 26px;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    min-height: auto;
+    overflow: visible;
   }
 
-  .stats > div,
   .stats .stat-col {
-    flex: 1;
+    flex: 1 1 33.333%;
     min-width: 0;
     text-align: center;
     padding: 0 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
     box-sizing: border-box;
   }
 
-  .stats strong {
-    font-size: clamp(19px, 5.2vw, 24px);
-    display: block;
-    line-height: 1.2;
+  .stat-number {
+    font-size: clamp(22px, 6vw, 28px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    direction: ltr;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
   }
 
-  .stats span {
-    font-size: clamp(10.5px, 3vw, 12px);
+  .stat-label {
+    font-size: clamp(11.5px, 3.2vw, 13px);
+    line-height: 1.35;
+    color: #f2e6dc;
+    font-weight: 600;
+    text-align: center;
+    word-break: normal;
+    overflow-wrap: break-word;
     display: block;
-    margin-top: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin: 0;
+    max-width: 100%;
   }
 
   .about {
