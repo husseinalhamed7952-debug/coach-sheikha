@@ -21,7 +21,7 @@ export const siteContentFallback = {
     description: 'أساعدك على تحقيق أهدافك الصحية من خلال خطط غذائية مخصصة ومتابعة مستمرة تراعي احتياجاتك ونمط حياتك، لتصلي إلى نتائج مستدامة بخطوات بسيطة وفعّالة.',
     primary_button_text: 'تعرفي علي أكثر',
     secondary_button_text: 'أكتشف الباقات',
-    image_url: '/coach-hero.jpg'
+    image_url: '/coach-hero.png'
   },
   stats: {
     items: [

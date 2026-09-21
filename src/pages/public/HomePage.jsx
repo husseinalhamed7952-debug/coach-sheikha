@@ -170,7 +170,7 @@ export default function HomePage() {
   const heroSecondaryBtn = content?.hero?.secondary_button_text || 'أكتشف الباقات';
   const heroImg = (content?.hero?.image_url && !content.hero.image_url.includes('unsplash'))
     ? content.hero.image_url
-    : 'public/coach-hero.png';
+    : '/coach-hero.png';
 
   const about = content?.about || {
     title: 'عن الكوتش',
