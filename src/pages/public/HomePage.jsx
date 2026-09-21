@@ -227,7 +227,7 @@ export default function HomePage() {
       {/* 3. About Section */}
       <section id="about" className="about section">
         <div className="about-art">
-          <img src="public/about-wreath.png" alt="عن الكوتش" className="about-wreath-img" />
+          <img src="/about-wreath.png" alt="عن الكوتش" className="about-wreath-img" />
         </div>
         <div className="about-content">
           <h2>{about.title}</h2>
