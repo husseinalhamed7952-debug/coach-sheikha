@@ -140,6 +140,20 @@ export default function Slider({
           <ChevronLeft size={22} />
         </button>
       </div>
+
+      {maxIndex > 0 && (
+        <div className="slider-dots">
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              className={`slider-dot ${i === currentIndex ? 'active' : ''}`}
+              onClick={() => setCurrentIndex(i)}
+              aria-label={`الشريحة ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Award } from 'lucide-react';
+import { Award, ClipboardList, FileEdit, Receipt } from 'lucide-react';
 import PublicLayout from '../../layouts/PublicLayout';
 import Slider from '../../components/common/Slider';
 import {
@@ -169,14 +169,16 @@ export default function HomePage() {
     };
   }, []);
 
-  const hero = content?.hero || {
-    eyebrow: 'أهلًا بكِ مع كوتش شيخة',
-    title: 'صحتك تبدأ بخطة تناسبك',
-    description: 'أساعدك على تحقيق أهدافك الصحية من خلال خطط غذائية مخصصة ومتابعة مستمرة تراعي احتياجاتك ونمط حياتك، لتصلي إلى نتائج مستدامة بخطوات بسيطة وفعّالة.',
-    primary_button_text: 'تعرّفي علي أكثر',
-    secondary_button_text: 'اكتشفي الباقات',
-    image_url: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=85'
-  };
+  const heroEyebrow = 'أهلاً، أنا كوتش شيخة';
+  const heroTitle = 'صحتكِ تبدأ بخطة تناسبكِ';
+  const heroDesc = (content?.hero?.description && !content.hero.description.includes('أمل'))
+    ? content.hero.description
+    : 'أساعدك على تحقيق أهدافك الصحية من خلال خطط غذائية مخصصة ومتابعة مستمرة تراعي احتياجاتك ونمط حياتك، لتصلي إلى نتائج مستدامة بخطوات بسيطة وفعالة.';
+  const heroPrimaryBtn = content?.hero?.primary_button_text || 'تعرفي علي أكثر';
+  const heroSecondaryBtn = content?.hero?.secondary_button_text || 'أكتشف الباقات';
+  const heroImg = (content?.hero?.image_url && !content.hero.image_url.includes('unsplash'))
+    ? content.hero.image_url
+    : '/coach-hero.jpg';
 
   const about = content?.about || {
     title: 'عن الكوتش',
@@ -185,14 +187,14 @@ export default function HomePage() {
   };
 
   const journeySteps = content?.journey?.steps || [
-    { number: '1', title: 'اختاري الباقة المناسبة', description: 'تصفحي الباقات واختاري الباقة التي تناسبك وأهدافك.' },
-    { number: '2', title: 'املئي بيانات الاشتراك', description: 'أدخلي بياناتك الشخصية وأرفقي سند الدفع.' },
-    { number: '3', title: 'أرسلي سند الدفع', description: 'قومي بتحويل قيمة الباقة وإرسال السند لتأكيد الاشتراك.' }
+    { number: '1', title: 'اختاري الخطة المناسبة', description: 'تصفحي الخطط والباقات واختاري ما يناسب أهدافكِ الصحية ونمط حياتكِ.' },
+    { number: '2', title: 'املأي بيانات الاشتراك', description: 'أدخلي بياناتكِ الشخصية ومعلوماتكِ الصحية لتخصيص خطتكِ الغذائية.' },
+    { number: '3', title: 'أرسلي سند الدفع', description: 'قومي بتحويل قيمة الاشتراك وإرفاق إيصال التحويل لتأكيد البدء فوراً.' }
   ];
 
   const cta = content?.cta || {
     title: 'ابدئي رحلتك اليوم',
-    description: 'نحو حياة صحية أكثر توازنًا وسعادة',
+    description: 'نحو حياة صحية أكثر توازناً وسعادة',
     button_text: 'اشتركي الآن'
   };
 
@@ -201,31 +203,33 @@ export default function HomePage() {
       {/* 1. Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <span className="eyebrow">{hero.eyebrow}</span>
-          <h1>{hero.title}</h1>
-          <p>{hero.description}</p>
+          <span className="eyebrow">{heroEyebrow}</span>
+          <h1>{heroTitle}</h1>
+          <p>{heroDesc}</p>
           <div className="actions">
-            <Link className="button" to="/subscription">
-              {hero.primary_button_text || 'تعرّفي علي أكثر'}
-            </Link>
-            <Link className="button outline" to="/packages">
-              {hero.secondary_button_text || 'اكتشفي الباقات'}
+            <a className="button hero-btn-primary" href="#about">
+              {heroPrimaryBtn}
+            </a>
+            <Link className="button hero-btn-secondary" to="/packages">
+              {heroSecondaryBtn}
             </Link>
           </div>
         </div>
         <div className="hero-art">
-          <img src={hero.image_url} alt="كوتش شيخة" />
+          <div className="hero-art-frame">
+            <img src={heroImg} alt="كوتش شيخة" />
+          </div>
         </div>
       </section>
 
       {/* 2. Statistics Section (100% Dynamic from site_content stats) */}
       <section className="stats">
         {(content?.stats?.items || [
-          { value: '4', label: 'برامج غذائية متنوعة' },
-          { value: '+100', label: 'مشتركة حققت أهدافها' },
-          { value: '+7', label: 'سنوات الخبرة والمتابعة' }
+          { value: '+7', label: 'سنوات الخبرة' },
+          { value: '+100', label: 'مشتركة حققن أهدافهن' },
+          { value: '+4', label: 'برامج غذائية متنوعة' }
         ]).slice(0, 3).map((item, idx) => (
-          <div key={idx}>
+          <div key={idx} className="stat-col">
             <AnimatedStat rawValue={item.value} />
             <span>{item.label}</span>
           </div>
@@ -234,7 +238,9 @@ export default function HomePage() {
 
       {/* 3. About Section */}
       <section id="about" className="about section">
-        <div className="about-art">🥗</div>
+        <div className="about-art">
+          <img src="/about-wreath.svg" alt="عن الكوتش" className="about-wreath-img" />
+        </div>
         <div className="about-content">
           <h2>{about.title}</h2>
           <p>{about.paragraph_1}</p>
@@ -244,7 +250,7 @@ export default function HomePage() {
 
       {/* 4. Certificates Section with Slider */}
       <section className="certificates section">
-        <h2>الشهادات والاعتمادات المعتمدة</h2>
+        <h2>الشهادات المعتمدة</h2>
         <Slider
           items={
             certificates.length > 0
@@ -283,81 +289,102 @@ export default function HomePage() {
                   </div>
                 )}
               </div>
-              <div className="certificate-meta">
-                <b>{c.title}</b>
-                {c.description && <small>{c.description}</small>}
-              </div>
             </article>
           )}
         />
       </section>
 
       {/* 5. How to Start Journey */}
-      <section className="section centered">
-        <h2>{content?.journey?.title || 'كيف تبدئين رحلتك مع كوتش شيخة ؟'}</h2>
-        <div className="steps">
-          {journeySteps.map(step => (
-            <article key={step.number}>
-              <i>{step.number}</i>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-            </article>
-          ))}
+      <section className="journey-section section centered">
+        <h2>{content?.journey?.title || 'كيف تبدأين رحلتك مع كوتش شيخة ؟'}</h2>
+        <div className="journey-timeline-wrapper">
+          <div className="journey-timeline-bar">
+            <span className="step-circle-badge">1</span>
+            <span className="step-circle-badge">2</span>
+            <span className="step-circle-badge">3</span>
+          </div>
+
+          <div className="steps">
+            {journeySteps.map((step, idx) => (
+              <article key={step.number} className="step-card">
+                <div className="step-icon-badge">
+                  {idx === 0 && <ClipboardList size={30} />}
+                  {idx === 1 && <FileEdit size={30} />}
+                  {idx === 2 && <Receipt size={30} />}
+                </div>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* 6. Success Stories / Testimonials with Slider */}
-      <section className="testimonials section centered">
-        <h2>قصص نجاح ملهمة</h2>
-        <Slider
-          items={
-            testimonials.length > 0
-              ? testimonials
-              : [
-                  {
-                    id: 'test-1',
-                    name: 'نورا محمد',
-                    content: 'كوتش رسمنا ما شاء الله، اللهم بارك مقاسي تغير من L إلى M',
-                    tag: 'مشتركة نشيطة',
-                    rating: '★★★★★'
-                  },
-                  {
-                    id: 'test-2',
-                    name: 'بنت شيفاء',
-                    content: 'والحمدلله اليوم صار 105.5 لي سنتين ثابتة على الوزن',
-                    tag: 'مشتركة نشيطة',
-                    rating: '★★★★★'
-                  },
-                  {
-                    id: 'test-3',
-                    name: 'شيماء علي',
-                    content: 'نزلت 12 كيلو معاك بالكوتش كان حلم بالنسبة لي واليوم أعيش حلمي',
-                    tag: 'مشتركة نشيطة',
-                    rating: '★★★★★'
-                  }
-                ]
-          }
-          desktopItems={3}
-          tabletItems={2}
-          mobileItems={1}
-          renderItem={(t) => (
-            <article className="testimonial-card" key={t.id}>
-              <p>{t.content}</p>
-              <hr />
-              <b>{t.name}</b>
-              <small>مشتركة نشيطة</small>
-              <span>★★★★★</span>
-            </article>
-          )}
-        />
+      <section className="testimonials-section">
+        <div className="testimonials-container">
+          <h2>قصص نجاح ملهمة</h2>
+          <Slider
+            items={
+              testimonials.length > 0
+                ? testimonials
+                : [
+                    {
+                      id: 'test-1',
+                      name: 'نور محمد',
+                      content: 'كوتش رسمياً ما شاء الله، اللهم بارك مقاسي تغير من M إلى L كل بنطلوناتي خلاص باي باي🤍',
+                      tag: 'مشتركة تضخيم',
+                      rating: '★★★★★'
+                    },
+                    {
+                      id: 'test-2',
+                      name: 'هدى عبدالله',
+                      content: 'والحمدلله اليوم صار 105.5 لي سنتين ثابته ع الوزن ماقد نزلت ع 107 مع انه اسبوع واحد بس راضيه بالنتيجة 💗',
+                      tag: 'مشتركة تنحيف',
+                      rating: '★★★★★'
+                    },
+                    {
+                      id: 'test-3',
+                      name: 'بشاير علي',
+                      content: 'نزلت ١٢ كيلو معاك ياكوتش كان حلم بالنسبة لي واليوم أعيش حلمي بفضل الله ثم فضلك 💖💖💖',
+                      tag: 'مشتركة تضخيم',
+                      rating: '★★★★★'
+                    }
+                  ]
+            }
+            desktopItems={3}
+            tabletItems={2}
+            mobileItems={1}
+            renderItem={(t) => (
+              <article className="testimonial-card" key={t.id}>
+                <p className="testimonial-quote">{t.content}</p>
+                <hr className="testimonial-divider" />
+                <div className="testimonial-footer-row">
+                  <div className="testimonial-avatar">
+                    {t.image_url ? (
+                      <img src={t.image_url} alt={t.name} />
+                    ) : (
+                      <span>{t.name ? t.name.charAt(0) : 'م'}</span>
+                    )}
+                  </div>
+                  <div className="testimonial-info">
+                    <b>{t.name}</b>
+                    <small>{t.tag || 'مشتركة نشيطة'}</small>
+                    <div className="testimonial-stars">{t.rating || '★★★★★'}</div>
+                  </div>
+                </div>
+              </article>
+            )}
+          />
+        </div>
       </section>
 
       {/* 7. CTA Section */}
-      <section className="cta">
-        <div>
-          <h2>{cta.title}</h2>
-          <p>{cta.description}</p>
-          <Link className="button" to="/subscription">
+      <section className="cta-wrapper">
+        <div className="cta-card">
+          <h2>{cta.title || 'ابدئي رحلتك اليوم'}</h2>
+          <p>{cta.description || 'نحو حياة صحية أكثر توازنًا وسعادة'}</p>
+          <Link className="button cta-btn" to="/subscription">
             {cta.button_text || 'اشتركي الآن'}
           </Link>
         </div>

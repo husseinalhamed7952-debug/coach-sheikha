@@ -25,13 +25,14 @@ export default function Footer() {
       <div className="footer-container">
         <img className="footer-logo" src={logo} alt={coachName} />
         <h3>{coachName}</h3>
-        <p className="footer-tagline">خطواتك الصغيرة اليوم، نتائج كبيرة في الغد</p>
+        <p className="footer-tagline">خطوتكِ الصغيرة اليوم ، نتائج كبيرة في الغد</p>
 
         <div className="footer-nav">
           <Link to="/">الرئيسية</Link>
           <Link to="/packages">الباقات</Link>
-          <Link to="/recipes">وصفات صحية</Link>
-          <Link to="/subscription">الاشتراك</Link>
+          <a href="/#about">عن الكوتش</a>
+          <a href="/#testimonials">آراء العميلات</a>
+          <a href="/#about">من أنا</a>
         </div>
 
         <div className="footer-social">

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 360" width="100%" height="100%" fill="none">
+  <!-- Soft circular wreath / decorative circle -->
+  <circle cx="180" cy="180" r="145" stroke="#E6D3C4" stroke-width="2" stroke-dasharray="6 6" opacity="0.6"/>
+  
+  <!-- Subtle background glow -->
+  <circle cx="180" cy="180" r="130" fill="#FCFAF7"/>
+  
+  <!-- Decorative Leaves around circle -->
+  <g opacity="0.75">
+    <path d="M70 140 C55 125, 60 105, 80 115 C75 130, 65 138, 70 140 Z" fill="#8FA876"/>
+    <path d="M60 170 C45 160, 50 140, 70 150 C65 165, 55 168, 60 170 Z" fill="#7C9862"/>
+    <path d="M290 140 C305 125, 300 105, 280 115 C285 130, 295 138, 290 140 Z" fill="#8FA876"/>
+    <path d="M300 170 C315 160, 310 140, 290 150 C295 165, 305 168, 300 170 Z" fill="#7C9862"/>
+    <path d="M120 60 C110 45, 130 40, 135 60 C125 65, 118 68, 120 60 Z" fill="#8FA876"/>
+    <path d="M240 60 C250 45, 230 40, 225 60 C235 65, 242 68, 240 60 Z" fill="#8FA876"/>
+    <path d="M110 300 C95 315, 115 320, 125 305 C118 298, 112 300, 110 300 Z" fill="#8FA876"/>
+    <path d="M250 300 C265 315, 245 320, 235 305 C242 298, 248 300, 250 300 Z" fill="#8FA876"/>
+  </g>
+
+  <!-- Central Healthy Bowl -->
+  <g transform="translate(130, 95)">
+    <!-- Bowl -->
+    <path d="M10 50 C10 80, 90 80, 90 50 Z" fill="#FAF1EA" stroke="#633200" stroke-width="2.5"/>
+    <ellipse cx="50" cy="50" rx="40" ry="12" fill="#EBD9CB" stroke="#633200" stroke-width="2"/>
+    <!-- Avocado half -->
+    <path d="M35 44 C35 36, 47 36, 47 44 C47 52, 35 52, 35 44 Z" fill="#A4C265"/>
+    <circle cx="41" cy="44" r="4.5" fill="#6E4720"/>
+    <!-- Salad Greens -->
+    <path d="M22 42 C18 36, 28 32, 32 38 Z" fill="#6A9347"/>
+    <path d="M52 40 C56 32, 68 34, 64 42 Z" fill="#7EA754"/>
+    <path d="M60 46 C65 40, 74 44, 70 50 Z" fill="#6A9347"/>
+    <!-- Cherry Tomato -->
+    <circle cx="50" cy="46" r="4" fill="#E0533C"/>
+  </g>
+
+  <!-- Water Bottle (Top Right) -->
+  <g transform="translate(235, 75)">
+    <rect x="8" y="2" width="10" height="6" rx="2" fill="#825126"/>
+    <rect x="5" y="8" width="16" height="5" rx="1" fill="#DECABB"/>
+    <rect x="4" y="13" width="18" height="42" rx="4" fill="#FFFFFF" stroke="#825126" stroke-width="2"/>
+    <!-- Water level -->
+    <path d="M5 28 Q13 26 21 28 L21 51 Q21 54 18 54 L8 54 Q5 54 5 51 Z" fill="#D9E8F5"/>
+    <line x1="10" y1="36" x2="16" y2="36" stroke="#B0CBE5" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="10" y1="42" x2="14" y2="42" stroke="#B0CBE5" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Dumbbell (Right) -->
+  <g transform="translate(245, 170)">
+    <!-- Left head -->
+    <rect x="0" y="2" width="6" height="24" rx="2.5" fill="#633200"/>
+    <rect x="6" y="5" width="4" height="18" rx="1.5" fill="#825126"/>
+    <!-- Bar -->
+    <rect x="10" y="11" width="22" height="6" rx="1" fill="#decabb"/>
+    <!-- Right head -->
+    <rect x="32" y="5" width="4" height="18" rx="1.5" fill="#825126"/>
+    <rect x="36" y="2" width="6" height="24" rx="2.5" fill="#633200"/>
+  </g>
+
+  <!-- Heart with Pulse (Lower Right) -->
+  <g transform="translate(210, 235)">
+    <path d="M22 36 L6 20 C-3 11, 4 -4, 16 3 C20 6, 22 10, 22 10 C22 10, 24 6, 28 3 C40 -4, 47 11, 38 20 Z" fill="#E86A58" opacity="0.9"/>
+    <path d="M12 18 L17 18 L19 13 L22 23 L25 16 L27 18 L32 18" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Weighing Scale (Lower Left) -->
+  <g transform="translate(75, 230)">
+    <rect x="4" y="4" width="48" height="48" rx="10" fill="#FFFFFF" stroke="#633200" stroke-width="2.5"/>
+    <path d="M18 10 Q28 16 38 10" fill="none" stroke="#EBD9CB" stroke-width="2"/>
+    <circle cx="28" cy="18" r="8" fill="#FAF1EA" stroke="#633200" stroke-width="1.5"/>
+    <line x1="28" y1="18" x2="31" y2="14" stroke="#D32F2F" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="16" y="34" width="24" height="8" rx="3" fill="#EBD9CB"/>
+  </g>
+
+  <!-- Measuring Tape (Wrapping from Left to Bottom) -->
+  <g transform="translate(80, 185)">
+    <path d="M10 25 C5 65, 45 95, 95 95 C145 95, 175 75, 195 55" fill="none" stroke="#F4C062" stroke-width="11" stroke-linecap="round"/>
+    <path d="M10 25 C5 65, 45 95, 95 95 C145 95, 175 75, 195 55" fill="none" stroke="#7A5610" stroke-width="11" stroke-dasharray="1.5 5" stroke-linecap="round"/>
+  </g>
+</svg>

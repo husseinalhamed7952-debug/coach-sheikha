@@ -23,18 +23,89 @@ export default function PackagesPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  const defaultBasic = [
+    {
+      id: 'basic-weekly',
+      slug: 'basic-weekly',
+      package_type: 'basic',
+      name: 'الباقة الأساسية - متابعة أسبوعية',
+      price: 299,
+      badge: null,
+      features: [
+        'جدول يوضح كميات الأكل',
+        'مرفق مع جدول تمارين',
+        'أفكار لوجبات صحية',
+        'متابعة أسبوعية للوزن والقياسات'
+      ],
+      is_available: true
+    },
+    {
+      id: 'basic-daily',
+      slug: 'basic-daily',
+      package_type: 'basic',
+      name: 'الباقة الأساسية - متابعة يومية',
+      price: 399,
+      badge: null,
+      features: [
+        'متابعة يومية دقيقة للوجبات',
+        'إرسال صور الوجبات للنقد والتعديل',
+        'مرفق مع جدول تمارين وتحديات',
+        'دعم فوري للإجابة على التساؤلات'
+      ],
+      is_available: true
+    }
+  ];
+
+  const defaultCustom = [
+    {
+      id: 'custom-weekly',
+      slug: 'custom-weekly',
+      package_type: 'custom',
+      name: 'الباقة المخصصة - متابعة أسبوعية',
+      price: 499,
+      badge: null,
+      features: [
+        'تصميم جدول غذائي مفصل 100%',
+        'خيارات صحية وبدائل مهمة متنوعة',
+        'تقرير أداء أسبوعي لتحليل التطور',
+        'متابعة الوزن دورياً مع الكوتش'
+      ],
+      is_available: true
+    },
+    {
+      id: 'custom-daily',
+      slug: 'custom-daily',
+      package_type: 'custom',
+      name: 'الباقة المخصصة - متابعة يومية',
+      price: 699,
+      badge: 'الأكثر شمولاً',
+      features: [
+        'تصميم جدول مخصص وتحديثه دورياً',
+        'تحديث الخطة يومياً عند الحاجة',
+        'متابعة دقيقة للتطور النفسي والجسدي',
+        'قياس الوزن أسبوعياً وتعديل السعرات'
+      ],
+      is_available: true
+    }
+  ];
+
   const basicList = packages.filter((p) => p.package_type === 'basic');
   const customList = packages.filter((p) => p.package_type === 'custom');
 
-  const sortedBasic = [...basicList].sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
-  const sortedCustom = [...customList].sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+  const sortedBasic = basicList.length > 0 
+    ? [...basicList].sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
+    : defaultBasic;
+
+  const sortedCustom = customList.length > 0
+    ? [...customList].sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
+    : defaultCustom;
 
   const compData = comparison || {
     title: 'ما الفرق بين الباقة الأساسية والباقة المخصصة؟',
     description: 'اختاري البرنامج الذي يناسب احتياجاتك وأهدافك الصحية.',
     card1: {
       title: 'الباقة الأساسية',
-      description: 'برنامج منظم ومناسب لمن ترغب في البدء بخطة غذائية واضحة ومتابعة مستمرة.',
+      description: 'برنامج منظم ومناسب لمن ترغب في البدء بخطة صحية واضحة ومتابعة مستمرة.',
       features: [
         'جدول كميات غذائية حسب فئة الوزن',
         'جدول تمارين مرفق',
@@ -46,7 +117,8 @@ export default function PackagesPage() {
     },
     card2: {
       title: 'الباقة المخصصة',
-      description: 'برنامج متكامل مصمم خصيصا وفق احتياجاتك وأهدافك الشخصية.',
+      badge: 'الأكثر تفصيلاً',
+      description: 'برنامج متكامل مصمم خصيصاً وفق احتياجاتك وأهدافك الدقيقة.',
       features: [
         'جدول كميات مخصص حسب الوزن والهدف',
         'توجيهات وتعليمات مفصلة',
@@ -170,7 +242,7 @@ export default function PackagesPage() {
               <section className="pkg-section">
                 <div className="pkg-section-header">
                   <h2>الباقات المخصصة</h2>
-                  <p>للحصول على أدق النتائج بخطط مرسومة خصيصاً لجسمك واحتياجاتك الفردية.</p>
+                  <p>للحصول على أدق النتائج بخطة مرسومة خصيصاً لجسمك واحتياجاتك الفردية.</p>
                 </div>
 
                 <div className="pkg-cards-grid">
@@ -212,10 +284,10 @@ export default function PackagesPage() {
 
                   {/* Card 2: الباقة المخصصة (Left side in RTL) */}
                   <div className="pkg-comparison-card">
-                    <span className="pkg-comp-badge">الأكثر تخصيصاً</span>
+                    <span className="pkg-comp-badge">{compData.card2?.badge || 'الأكثر تفصيلاً'}</span>
                     <h3>{compData.card2?.title || 'الباقة المخصصة'}</h3>
                     <p className="pkg-comp-desc">
-                      {compData.card2?.description || 'برنامج متكامل مصمم خصيصا وفق احتياجاتك وأهدافك الشخصية.'}
+                      {compData.card2?.description || 'برنامج متكامل مصمم خصيصاً وفق احتياجاتك وأهدافك الدقيقة.'}
                     </p>
                     <hr className="pkg-comp-divider" />
                     <ul className="pkg-features-list">
