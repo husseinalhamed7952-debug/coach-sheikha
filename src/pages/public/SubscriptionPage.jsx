@@ -350,7 +350,7 @@ export default function SubscriptionPage() {
           <h2>رفع سند الإيداع <span className="req">*</span></h2>
           <label className={`upload ${file ? 'has-file' : ''} ${fileError ? 'has-error' : ''}`}>
             {file ? <FileCheck size={36} color="#48863f" /> : <Upload size={36} />}
-            <b>{file ? file.name : 'اضغطي لاختيار صورة السند أو اسحبي الملف هنا'}</b>
+            <b title={file ? file.name : undefined}>{file ? file.name : 'اضغطي لاختيار صورة السند أو اسحبي الملف هنا'}</b>
             <small>
               {file
                 ? `الحجم: ${formatFileSize(file.size)} | جاهز للرفع`

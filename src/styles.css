@@ -1546,6 +1546,10 @@ footer.site-footer {
   background: #fffefd;
   cursor: pointer;
   transition: 0.2s;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .upload:hover {
@@ -1573,6 +1577,13 @@ footer.site-footer {
 .upload b {
   display: block;
   font-size: 15px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .upload small {
@@ -3011,6 +3022,23 @@ footer.site-footer {
 
   .package-pick {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .upload {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .upload b {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
   }
 
   /* Admin Responsive */
